@@ -1,7 +1,7 @@
 const products = [
   { name: 'Caño 1/4', price: 30000 },
   { name: 'Caño 3/8', price: 45000 },
-  { name: 'Caño 1/2', price: 60000 },
+  { name: 'CAÑO 1/2', price: 60000 },
   { name: 'Caño 5/8', price: 75000 }
 ];
 
@@ -13,22 +13,27 @@ function addToCart(productName, price) {
 }
 
 function removeFromCart(index) {
-  cart.splice(index, 1);
-  updateCart();
+  const confirmDelete = confirm("¿Estás seguro de eliminar este producto?");
+  if (confirmDelete) {
+      cart.splice(index, 1);
+      updateCart();
+  }
 }
 
 function updateCart() {
-  const cartItemsElement = document.getElementById('cart-items');
-  cartItemsElement.innerHTML = '';
+  const cartElement = document.getElementById('cart');
+  cartElement.innerHTML = '';
 
   let total = 0;
   cart.forEach((item, index) => {
-      const itemElement = document.createElement('li');
-      itemElement.innerHTML = `${item.name} - $${item.price} <button onclick="removeFromCart(${index})">Eliminar</button>`;
-      cartItemsElement.appendChild(itemElement);
+      const itemElement = document.createElement('div');
+      itemElement.innerHTML = `${item.name} - $${item.price}
+          <button onclick="removeFromCart(${index})">Eliminar</button>`;
+      cartElement.appendChild(itemElement);
       total += item.price;
   });
 
-  const totalElement = document.getElementById('total');
-  totalElement.textContent = total;
+  const totalElement = document.createElement('p');
+  totalElement.textContent = `Total: $${total}`;
+  cartElement.appendChild(totalElement);
 }
