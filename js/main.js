@@ -70,7 +70,7 @@ function cargarProductos(productosElegidos) {
 }
 cargarProductos(productos);
 
-botonesCategoria.forEach(boton => {
+botonesCategorias.forEach(boton => {
     boton.addEventListener("click", (e)=> {
 
         botonesCategorias.forEach(boton => boton.classList.remove("active"));
@@ -100,9 +100,10 @@ function actualizarBotonesAgregar() {
 
 let productosEnCarrito;
 
-const productosEnCarritoLS = JSON.parse(localStorage.getItem("productos-en-carrito"));
+const productosEnCarritoLS = localStorage.getItem("productosEnCarrito");
+
 if(productosEnCarritoLS) {
-   productosEnCarrito = productosEnCarritoLS;
+   productosEnCarrito = JSON.parse(productosEnCarritoLS);
    actualizarNumerito();
 
 } else{
